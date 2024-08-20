@@ -59,22 +59,30 @@ class VideoUploadAPIView(APIView):
         if not os.path.exists("files"):
             os.makedirs("files")
 
+        video_root = "files/videos"
+
+        #
+        # Create folder video if not exists
+        #
+        if not os.path.exists(video_root):
+            os.makedirs(video_root)
+
         #
         # Create folder with random name if not exists
         #
-        if not os.path.exists(f"files/{random_name}"):
-            os.makedirs(f"files/{random_name}")
+        if not os.path.exists(f"{video_root}/{random_name}"):
+            os.makedirs(f"{video_root}/{random_name}")
 
         #
         # Create and upload file
         #
-        with open(f"files/{random_name}/{video.name}", "wb+") as destination:
+        with open(f"{video_root}/{random_name}/{video.name}", "wb+") as destination:
             for chunk in video.chunks():
                 destination.write(chunk)
 
         ProcessVideo(
-            video_path=f"files/{random_name}/{video.name}",
-            output_path=f"files/{random_name}/{random_name}-output.mp4"
+            video_path=f"{video_root}/{random_name}/{video.name}",
+            output_path=f"{video_root}/{random_name}/{random_name}-output.mp4"
         ).process()
 
         return Response({"message": "Video uploaded and processed successfully!"}, status=200)

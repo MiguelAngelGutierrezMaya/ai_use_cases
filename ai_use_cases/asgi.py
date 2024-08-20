@@ -1,5 +1,5 @@
 """
-ASGI config for video_recognition project.
+ASGI config for ai_use_cases project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'video_recognition.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ai_use_cases.settings')
 
 application = get_asgi_application()

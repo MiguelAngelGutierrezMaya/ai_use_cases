@@ -1,5 +1,5 @@
 """
-URL configuration for video_recognition project.
+URL configuration for ai_use_cases project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -21,4 +21,5 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("upload/", include("video_upload.urls")),
+    path("nsfw-image-upload/", include("nsfw_detection.urls")),
 ]
