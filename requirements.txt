@@ -6,4 +6,16 @@ transformers==4.44.0
 opencv-python==4.10.0.84
 pillow==10.4.0
 Django~=5.1
-torch==2.4.0
+torch==2.7.0
+
+#
+# Rfdetr
+# NOTE: Install manually with: pip install rfdetr==1.1.0 --no-deps
+# This package has dependency issues with onnxsim that prevent normal installation
+#
+# rfdetr==1.1.0
+torchvision>=0.22.0
+supervision==0.25.1
+pydantic==2.11.4
+pycocotools==2.0.8
+peft==0.15.2

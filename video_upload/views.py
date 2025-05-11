@@ -4,8 +4,8 @@
 import os
 import uuid
 
-from .modules.infrastructure.process_video import ProcessVideo
-
+from .modules.infrastructure.process_video_rtdert import ProcessVideo as ProcessVideoRtDetr
+from .modules.infrastructure.upload_video import upload_video
 #
 # Django rest framework dependencies
 #
@@ -18,7 +18,7 @@ from rest_framework.views import APIView
 #
 # Video upload API view
 #
-class VideoUploadAPIView(APIView):
+class RtDetrAPIView(APIView):
     authentication_classes = []
     permission_classes = []
 
@@ -28,61 +28,15 @@ class VideoUploadAPIView(APIView):
     def post(self, request):
         video = request.FILES.get("video")
 
-        #
-        # Validate video exists
-        #
-        if not video:
-            return Response({"message": "Video not found!"}, status=400)
+        success, message, uploaded_video = upload_video(video)
 
-        #
-        # Validate video size under 20MB
-        #
-        if video.size > 20971520:
-            return Response({"message": "Video size exceeds 20MB limit!"}, status=400)
+        if not success:
+            return Response({"message": message}, status=400)
 
-        #
-        # Validate video format is mp4
-        #
-        if not video.name.endswith(".mp4"):
-            return Response({"message": "Video format must be mp4!"}, status=400)
 
-        random_name = uuid.uuid4()
-
-        #
-        # Change video name by uuid
-        #
-        video.name = f"{random_name}.mp4"
-
-        #
-        # Create folder if not exists
-        #
-        if not os.path.exists("files"):
-            os.makedirs("files")
-
-        video_root = "files/videos"
-
-        #
-        # Create folder video if not exists
-        #
-        if not os.path.exists(video_root):
-            os.makedirs(video_root)
-
-        #
-        # Create folder with random name if not exists
-        #
-        if not os.path.exists(f"{video_root}/{random_name}"):
-            os.makedirs(f"{video_root}/{random_name}")
-
-        #
-        # Create and upload file
-        #
-        with open(f"{video_root}/{random_name}/{video.name}", "wb+") as destination:
-            for chunk in video.chunks():
-                destination.write(chunk)
-
-        ProcessVideo(
-            video_path=f"{video_root}/{random_name}/{video.name}",
-            output_path=f"{video_root}/{random_name}/{random_name}-output.mp4"
+        ProcessVideoRtDetr(
+            video_path=f"{uploaded_video['video_path']}",
+            output_path=f"{uploaded_video['video_root']}/{uploaded_video['random_name']}/{video.name}-output.mp4"
         ).process()
 
         return Response({"message": "Video uploaded and processed successfully!"}, status=200)

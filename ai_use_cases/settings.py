@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # Local apps
+    'image_upload',
     'video_upload',
     'nsfw_detection',
 ]

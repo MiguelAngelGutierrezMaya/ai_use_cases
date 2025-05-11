@@ -3,8 +3,8 @@ from django.urls import path
 #
 # Views
 #
-from .views import VideoUploadAPIView
+from .views import RtDetrAPIView
 
 urlpatterns = [
-    path('', VideoUploadAPIView.as_view(), name='video_upload'),
+    path('', RtDetrAPIView.as_view(), name='rt_detr'),
 ]

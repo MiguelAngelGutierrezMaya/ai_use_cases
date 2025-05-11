@@ -20,6 +20,7 @@ from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("upload/", include("video_upload.urls")),
+    path("video-upload/", include("video_upload.urls")),
     path("nsfw-image-upload/", include("nsfw_detection.urls")),
+    path("image-upload/", include("image_upload.urls")),
 ]
