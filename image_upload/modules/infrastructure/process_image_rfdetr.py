@@ -10,7 +10,7 @@ class ProcessImageRfdetr:
         self.model = RFDETRBase()
 
     def process(self):
-        image = Image.open(self.image_path)
+        image = Image.open(self.image_path).convert('RGB')
         detections = self.model.predict(image, threshold=0.5)
 
         labels = [
