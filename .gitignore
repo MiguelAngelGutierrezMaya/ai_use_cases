@@ -185,3 +185,5 @@ rf-detr-base.pth
 
 scripts/object_unique_detection/
 scripts/object_specified_detection/
+scripts/train_datasets/
+scripts/train_outputs/

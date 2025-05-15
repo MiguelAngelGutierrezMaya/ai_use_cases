@@ -6,7 +6,7 @@ transformers==4.44.0
 opencv-python==4.10.0.84
 pillow==10.4.0
 Django~=5.1
-torch==2.7.0
+tensorboard==2.19.0
 
 #
 # Rfdetr
